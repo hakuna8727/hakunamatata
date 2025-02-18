@@ -22,11 +22,21 @@
             margin: auto;
             text-align: center;
         }
+	.hidden {
+		display: none;
+	}
 </style>
+<script>
+        function showThankYou(event) {
+            event.preventDefault(); // Prevent form submission
+            document.getElementById("formContainer").classList.add("hidden");
+            document.getElementById("thankYouContainer").classList.remove("hidden");
+        }
+    </script>
 </head>
 <body>
-<div class="container">
-    <form action="submit_form.php" method="post">
+<div  id="formContainer" class="container">
+    <form onsubmit="showThankYou(event)">
 	<h1 align="center">Feedback Form For Students</h1>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
@@ -67,5 +77,11 @@
         <input type="submit" value="Submit">
 	<input type="reset" value="Reset">
     </form>
+</div>
+	<div id="thankYouContainer" class="container hidden">
+        <h2>Thank You!</h2>
+        <p>Your submission has been received.</p>
+        <button onclick="location.reload()">Go Back</button>
+    </div>
 </body>
 </html>
