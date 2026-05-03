@@ -1,0 +1,99 @@
+APNA KITCHEN - MID TERM PROJECT REPORT
+
+CHAPTER 1: INTRODUCTION
+1.1 Project Overview
+"APNA KITCHEN" is an innovative Android-based mobile application designed to bridge the gap between culinary enthusiasts and authentic, home-style recipes. The name "APNA KITCHEN" (Our Kitchen) reflects a community-centric space that feels personal and accessible to every user, from novice cooks to seasoned chefs.
+
+1.2 Problem Statement
+Finding reliable and well-structured home-style recipes often involves navigating through cluttered websites. APNA KITCHEN provides a clean, categorized, and searchable database prioritizing ease of use during the actual cooking process.
+
+CHAPTER 2: PROJECT OBJECTIVES
+2.1 Technical Objectives
+1. Develop a high-performance Android application using Java.
+2. Implement real-time data integration via Retrofit.
+3. Enhance UI/UX using Material Design and a dedicated Search section.
+4. Provide comprehensive recipe details with high-readability typography.
+
+2.2 Social Objectives
+1. Preserving Culinary Heritage.
+2. Promoting Healthy Lifestyles.
+3. Enhancing Accessibility for beginners.
+
+CHAPTER 3: SYSTEM REQUIREMENTS
+3.1 Software: Windows/macOS, Android Studio, Java (JDK 11), Retrofit, Glide, Gson.
+3.2 Hardware: Intel i5/Ryzen 5, 8GB RAM (Dev); Android 7.0+, 2GB RAM (Phone).
+
+CHAPTER 4: SOFTWARE REQUIREMENT ANALYSIS
+4.1 Problem Definition: Overcoming information overload and poor accessibility in recipe discovery.
+4.2 Module-wise Functionalities: Splash, Home, Search, Recipe Details, User Management, Content Contribution, and Network modules.
+
+CHAPTER 5: SOFTWARE DESIGN
+5.1 System Architecture (Block Diagram)
+The APNA KITCHEN application follows a robust Client-Server Architecture:
+- Presentation Layer (Mobile Client): Android Activities (Home, Search, Details) and Adapters for UI rendering.
+- Networking Layer: Retrofit and OkHttp for asynchronous API communication and JSON serialization.
+- Backend Layer: Node.js server (server.js) managing business logic and data routing.
+- Data Layer: Persistent storage on the server and Glide-based image caching on the mobile client.
+
+5.2 Use Case Diagram
+This diagram defines the interactions between the users and the system:
+- Guest User: Can browse recipes, search by title, and filter by category.
+- Registered User: Can login/register, view their profile, and contribute new recipes via AddRecipeActivity.
+- System/Admin: Handles recipe validation, data serving, and authentication verification.
+
+5.3 Activity Diagram (Search & Filter Logic)
+The search workflow follows this path:
+1. Start: User navigates to the Search screen.
+2. Input: User enters text in the SearchView or selects a category from the Spinner.
+3. Process: The filter() method iterates through the master recipe list.
+4. Logic: Checks if (RecipeTitle contains SearchQuery) AND (RecipeCategory matches Selection).
+5. Output: Updates the filteredRecipeList and refreshes the RecyclerView display.
+6. End: User views the relevant results.
+
+5.4 Database Design (Entity-Relationship Diagram)
+The data is logically organized into two primary entities:
+- User Entity: Contains attributes like id (Primary Key), username, email, and password.
+- Recipe Entity: Contains attributes like id (Primary Key), title, description, ingredients, instructions, imageUrl, category, and userId (Foreign Key).
+- Relationship: A 1:N (One-to-Many) relationship exists between User and Recipe, where one user can contribute multiple recipes.
+
+5.5 Sequence Diagram (Fetching Data)
+The communication flow for loading recipes:
+1. HomeActivity triggers the fetchRecipes() call.
+2. ApiService (Retrofit) makes an HTTP GET request to the Node.js backend.
+3. server.js processes the request and sends back a JSON array of recipe objects.
+4. Retrofit deserializes the JSON into a Java List<Recipe>.
+5. HomeActivity updates the RecipeAdapter with the new list.
+6. RecipeAdapter notifies the RecyclerView to update the UI components.
+
+5.6 UI Flow (State Diagram)
+The application transitions through various states based on user interaction:
+- Splash State: Initial launch, displays branding for 3 seconds.
+- Home State: Primary browsing state showing the recipe feed.
+- Search State: Active filtering state allowing keyword/category lookups.
+- Detail State: Focused view for reading specific recipe instructions.
+- Auth State: Login/Register screens for user session management.
+
+5.7 Design Features & Solutions
+- Solution to High Readability: Explicitly setting TextViews to Bold/Black color in XML and code to overcome theme overrides.
+- Solution to Seamless Navigation: Implementing a BottomAppBar with a Floating Action Button and Toolbars with Back Arrows.
+- Solution to Performance: Using Glide for non-blocking image loading and Retrofit for asynchronous network calls.
+
+CHAPTER 6: DETAILED FILE DESCRIPTION
+6.1 Java Source Files: MainActivity, HomeActivity, SearchActivity, RecipeDetailsActivity, Recipe, RecipeAdapter, ApiClient, ApiService, LoginActivity, RegisterActivity.
+6.2 Resource Files: activity_main, activity_home, activity_search, activity_recipe_details, recipe_item, themes, AndroidManifest.
+6.3 Backend: server.js (Node.js API).
+
+CHAPTER 7: TESTING MODULE
+7.1 Techniques: Unit, Integration, UI/UX, Black-Box, and Usability Testing.
+7.2 Test Cases: Covering Splash delay, Data fetching, Search/Filter accuracy, Navigation, Readability, and Error handling.
+
+CHAPTER 8: CONCLUSION AND FUTURE SCOPE
+8.1 Conclusion
+The APNA KITCHEN project successfully demonstrates the development of a modern, data-driven Android application. By integrating Retrofit for real-time data and focusing on specific UI/UX needs (bold readability), the project fulfills both its technical and social objectives of providing an accessible culinary platform.
+
+8.2 Future Scope
+1. Offline Mode: Implementing Room Database to allow users to view saved recipes without internet.
+2. AI Recommendations: Using machine learning to suggest recipes based on user preferences.
+3. Video Integration: Adding short video tutorials for complex recipe steps.
+4. Social Sharing: Allowing users to share recipes directly to social media platforms.
+5. Voice Commands: Enabling hands-free navigation for users with messy hands in the kitchen.
